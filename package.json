@@ -1,0 +1,11 @@
+{
+  "name": "rauricoste-commandify",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha --require './src/tests' 'src/**/*.spec.js'"
+  },
+  "author": "Rémy Auricoste",
+  "license": "ISC"
+}
