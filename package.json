@@ -2,10 +2,13 @@
   "name": "rauricoste-commandify",
   "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "src/CommandFactory.js",
   "scripts": {
     "test": "./node_modules/mocha/bin/mocha --require './src/tests' 'src/**/*.spec.js'"
   },
   "author": "Rémy Auricoste",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "rauricoste-tests": "0.0.2"
+  }
 }
