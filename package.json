@@ -9,6 +9,6 @@
   "author": "Rémy Auricoste",
   "license": "ISC",
   "devDependencies": {
-    "rauricoste-tests": "0.0.2"
+    "rauricoste-tests": "0.0.x"
   }
 }
