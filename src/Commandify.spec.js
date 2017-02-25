@@ -1,6 +1,6 @@
-var CommandFactory = require("./CommandFactory");
+var Commandify = require("./Commandify");
 
-describe("CommandFactory", function() {
+describe("Commandify", function() {
     var Adder = function(value) {
         this.value = value || 0;
     }
@@ -12,7 +12,7 @@ describe("CommandFactory", function() {
         var object = new Adder(1)
         expect(object.value).to.equal(1);
 
-        var commandBuilder = CommandFactory.commandify(object);
+        var commandBuilder = Commandify(object);
         var command = commandBuilder.add();
         expect(object.value).to.equal(1);
 
@@ -25,9 +25,11 @@ describe("CommandFactory", function() {
         expect(object.value).to.equal(1);
 
         var added = false;
-        var commandBuilder = CommandFactory.commandify(object, function(command) {
-            added = true;
-            return command;
+        var commandBuilder = Commandify(object, {
+            wrapper: function(command) {
+                added = true;
+                return command;
+            }
         });
 
         expect(added).to.equal(false);
@@ -39,5 +41,21 @@ describe("CommandFactory", function() {
         expect(object.value).to.equal(1);
         expect(newObject.value).to.equal(2);
         expect(added).to.equal(true);
+    });
+    it("should treat a shitload of command", function() {
+        var MutableAdder = function(value) {
+            this.value = value || 0;
+        }
+        MutableAdder.prototype.add = function() {
+            this.value++;
+        }
+
+        var adder = new MutableAdder(1);
+        var commandBuilder = Commandify(adder);
+        for (var i=0;i<10000;i++) {
+            var command = commandBuilder.add();
+            command.apply();
+        }
+        expect(adder.value).to.equal(10001);
     })
 })
