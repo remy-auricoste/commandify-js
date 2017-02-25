@@ -1,16 +1,11 @@
-var CommandFactory = function(object, options) {
+var Commandify = function(object, options) {
     this.options = options || {};
     this.options.apply = this.options.apply === undefined ? true : this.options.apply;
     this.options.wrapper = this.options.wrapper || null;
 
     var applyFctBuilder = this.options.apply ? function(command) {
         return function() {
-            var object = command.object;
-            if (command.method in object) {
-                return object[command.method].apply(object, command.args);
-            } else {
-                throw new Error("cannot apply command "+command.method+" on object "+object);
-            }
+            return Commandify.applyCommand(command.object, command);
         }
     } : null;
 
@@ -45,5 +40,12 @@ var CommandFactory = function(object, options) {
     }
     return result;
 }
+Commandify.applyCommand = function(object, command) {
+    if (command.method in object) {
+        return object[command.method].apply(object, command.args);
+    } else {
+        throw new Error("cannot apply command "+command.method+" on object "+object);
+    }
+}
 
-module.exports = CommandFactory;
+module.exports = Commandify;
