@@ -32,12 +32,16 @@ var Commandify = function(object, options) {
     }
 
     var result = {};
-    for (var key in object) {
-        var value = object[key];
-        if (typeof value === "function") {
-            result[key] = finalBuildFct(key);
-        }
+    var inheritFrom = function(object) {
+        Object.getOwnPropertyNames(object).forEach(function(key) {
+            var value = object[key];
+            if (typeof value === "function") {
+                result[key] = finalBuildFct(key);
+            }
+        });
     }
+    inheritFrom(Object.getPrototypeOf(object));
+    inheritFrom(object);
     return result;
 }
 Commandify.applyCommand = function(object, command) {
