@@ -27,7 +27,7 @@ var Commandify = function(object, options) {
     }
     var finalBuildFct = function(key) {
         return function() {
-            return buildFct(object, key, arguments);
+            return buildFct(object, key, argsToArray(arguments));
         }
     }
 
@@ -43,6 +43,13 @@ var Commandify = function(object, options) {
     inheritFrom(Object.getPrototypeOf(object));
     inheritFrom(object);
     return result;
+}
+const argsToArray = (args) => {
+  const arr = []
+  for (let i=0;i<args.length;i++) {
+    arr.push(args[i])
+  }
+  return arr
 }
 Commandify.applyCommand = function(object, command) {
     if (command.method in object) {

@@ -28,7 +28,7 @@ console.log(command)
 // returns :
 // { object: { value: 1, add: [Function: add] },
 //  method: 'add',
-//  args: { '0': 3 },
+//  args: [ 3 ],
 //  apply: [Function] }
 
 
