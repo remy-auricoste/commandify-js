@@ -1,6 +1,6 @@
 {
   "name": "rauricoste-commandify",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "",
   "main": "src/Commandify.js",
   "scripts": {
