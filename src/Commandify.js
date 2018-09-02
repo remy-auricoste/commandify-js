@@ -1,9 +1,9 @@
 var Commandify = function(object, options) {
-    this.options = options || {};
-    this.options.apply = this.options.apply === undefined ? true : this.options.apply;
-    this.options.wrapper = this.options.wrapper || null;
+    options = options || {};
+    options.apply = options.apply === undefined ? true : options.apply;
+    options.wrapper = options.wrapper || null;
 
-    var applyFctBuilder = this.options.apply ? function(command) {
+    var applyFctBuilder = options.apply ? function(command) {
         return function() {
             return Commandify.applyCommand(command.object, command);
         }
@@ -19,7 +19,7 @@ var Commandify = function(object, options) {
         return command;
     }
     var buildFct = buildFctSimple;
-    var wrapper = this.options.wrapper;
+    var wrapper = options.wrapper;
     if (wrapper) {
         buildFct = function(object, methodName, fctArgs) {
             return wrapper(buildFctSimple(object, methodName, fctArgs));
